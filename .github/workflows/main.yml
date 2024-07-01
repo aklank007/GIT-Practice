@@ -1,0 +1,15 @@
+name: Restrict direct merge to main
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  restrict-main-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the PR is not raised from release branch
+        run: |
+          if [[ "${{ github.event.pull_request.head.ref }}" != "release" ]]; then
+            echo "${Merging {github.event.pull_request.head.ref} branch directly into main is not allowed.}"
+            exit 1
+          fi
