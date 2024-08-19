@@ -17,8 +17,8 @@ jobs:
 
       - name: Install Tosca CLI (if applicable)
         run: |
-          # If Tosca has a CLI tool, you might need to install it here
-          # e.g., pip install tosca-cli
+          If Tosca has a CLI tool, you might need to install it here
+          e.g., pip install tosca-cli
 
       - name: Connect to Tosca Server and Run Tests
         env:
