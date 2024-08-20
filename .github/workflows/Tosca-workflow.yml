@@ -1,41 +1,39 @@
-name: Run Tosca Tests
+name: Install TOSCA CLI on Windows
 
 on:
   push:
     branches:
-      - dev
-      - test
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  run-tosca-tests:
+  install-tosca-cli:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Install Tosca CLI (if applicable)
+      - name: Set up environment
         run: |
-          If Tosca has a CLI tool, you might need to install it here
-          e.g., pip install tosca-cli
+          $env:TOSCA_CLI_URL = "https://example.com/tosca-cli/windows/tosca-cli.exe"  # Replace with the actual TOSCA CLI URL
+          $env:TOSCA_CLI_PATH = "C:\tools\tosca-cli"
+          if (!(Test-Path -Path $env:TOSCA_CLI_PATH)) {
+            New-Item -ItemType Directory -Force -Path $env:TOSCA_CLI_PATH
+          }
 
-      - name: Connect to Tosca Server and Run Tests
-        env:
-          TOSCA_SERVER_URL: ${{ secrets.TOSCA_SERVER_URL }}
-          TOSCA_USERNAME: ${{ secrets.TOSCA_USERNAME }}
-          TOSCA_PASSWORD: ${{ secrets.TOSCA_PASSWORD }}
+      - name: Download TOSCA CLI
         run: |
-          # Replace the following with the actual commands to connect to Tosca and run tests
-          # Example (if using a hypothetical Tosca CLI):
-          # tosca-cli connect --server $TOSCA_SERVER_URL --username $TOSCA_USERNAME --password $TOSCA_PASSWORD
-          # tosca-cli run-tests --project YourProject --testsuite YourTestSuite
+          Invoke-WebRequest -Uri $env:TOSCA_CLI_URL -OutFile "$env:TOSCA_CLI_PATH\tosca-cli.exe"
 
-          # Or if you have a custom script:
-          ./path/to/your/script.sh $TOSCA_SERVER_URL $TOSCA_USERNAME $TOSCA_PASSWORD
-
-      - name: Upload Test Results (if applicable)
-        uses: actions/upload-artifact@v2
-        with:
-          name: Tosca-Test-Results
-          path: path/to/test-results/
+      - name: Add TOSCA CLI to PATH
+        shell: pwsh
+        run: |
+          $env:Path += ";$env:TOSCA_CLI_PATH"
+          [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
+      
+      - name: Verify TOSCA CLI installation
+        run: tosca-cli --version
