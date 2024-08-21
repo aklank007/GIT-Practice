@@ -11,7 +11,7 @@ jobs:
 
       - name: Install Tosca Execution Client
         run: |
-          Invoke-WebRequest -Uri "https://github.com/Tricentis/ToscaExecutionClient/releases/latest/download/ToscaExecutionClient.ps1" -OutFile "ToscaExecutionClient.ps1"
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Tricentis/ToscaExecutionClient/main/tosca_execution_client.ps1" -OutFile "ToscaExecutionClient.ps1"
           Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
           .\ToscaExecutionClient.ps1
 
