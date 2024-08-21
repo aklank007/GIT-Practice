@@ -12,7 +12,7 @@ jobs:
       - name: Install Tosca Execution Client
         run: |
           #Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-          ./tosca_execution_client.ps1
+          .\tosca_execution_client.ps1
 
       # - name: Run Tosca Tests
       #   run: |
@@ -22,4 +22,4 @@ jobs:
           $eventName = "<your_event_name>"
           
           # Execute the Tosca CLI command
-          .\ToscaExecutionClient.ps1 -toscaServerUrl $toscaServerUrl -projectName $projectName -events $eventName
+          # .\ToscaExecutionClient.ps1 -toscaServerUrl $toscaServerUrl -projectName $projectName -events $eventName
