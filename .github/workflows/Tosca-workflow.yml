@@ -11,11 +11,11 @@ jobs:
 
       - name: Install Tosca Execution Client
         run: |
-          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-          .\ToscaExecutionClient.ps1
+          #Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+          ./tosca_execution_client.ps1
 
-      - name: Run Tosca Tests
-        run: |
+      # - name: Run Tosca Tests
+      #   run: |
           # Replace with your actual parameters
           $toscaServerUrl = "<your_tosca_server_url>"
           $projectName = "<your_project_name>"
