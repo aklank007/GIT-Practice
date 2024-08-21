@@ -1,39 +1,26 @@
-name: Install TOSCA CLI on Windows
+name: Install and Run Tosca CLI
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+on: [push]
 
 jobs:
-  install-tosca-cli:
+  run-tosca:
     runs-on: windows-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up environment
+      - name: Install Tosca Execution Client
         run: |
-          $env:TOSCA_CLI_URL = "https://example.com/tosca-cli/windows/tosca-cli.exe"  # Replace with the actual TOSCA CLI URL
-          $env:TOSCA_CLI_PATH = "C:\tools\tosca-cli"
-          if (!(Test-Path -Path $env:TOSCA_CLI_PATH)) {
-            New-Item -ItemType Directory -Force -Path $env:TOSCA_CLI_PATH
-          }
+          Invoke-WebRequest -Uri "https://github.com/Tricentis/ToscaExecutionClient/releases/latest/download/ToscaExecutionClient.ps1" -OutFile "ToscaExecutionClient.ps1"
+          Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+          .\ToscaExecutionClient.ps1
 
-      - name: Download TOSCA CLI
+      - name: Run Tosca Tests
         run: |
-          Invoke-WebRequest -Uri $env:TOSCA_CLI_URL -OutFile "$env:TOSCA_CLI_PATH\tosca-cli.exe"
-
-      - name: Add TOSCA CLI to PATH
-        shell: pwsh
-        run: |
-          $env:Path += ";$env:TOSCA_CLI_PATH"
-          [System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
-      
-      - name: Verify TOSCA CLI installation
-        run: tosca-cli --version
+          # Replace with your actual parameters
+          $toscaServerUrl = "<your_tosca_server_url>"
+          $projectName = "<your_project_name>"
+          $eventName = "<your_event_name>"
+          
+          # Execute the Tosca CLI command
+          .\ToscaExecutionClient.ps1 -toscaServerUrl $toscaServerUrl -projectName $projectName -events $eventName
