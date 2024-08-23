@@ -17,9 +17,9 @@ jobs:
       # - name: Run Tosca Tests
       #   run: |
           # Replace with your actual parameters
-          $toscaServerUrl = "<your_tosca_server_url>"
-          $projectName = "<your_project_name>"
-          $eventName = "<your_event_name>"
+          # $toscaServerUrl = "<your_tosca_server_url>"
+          # $projectName = "<your_project_name>"
+          # $eventName = "<your_event_name>"
           
           # Execute the Tosca CLI command
           # .\ToscaExecutionClient.ps1 -toscaServerUrl $toscaServerUrl -projectName $projectName -events $eventName
