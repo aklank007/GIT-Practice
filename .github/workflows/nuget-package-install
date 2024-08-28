@@ -1,0 +1,25 @@
+name: Install Nuget Packages
+
+on: [push]
+
+jobs:
+  run-Nuget:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/setup-dotnet@v1
+
+      - name: List all files in the current directory
+        run: ls
+
+      - name: Set up NuGet CLI
+        uses: NuGet/setup-nuget@v1
+
+      # - name: Restore NuGet Packages
+      #   run: nuget restore
+
+      # - name: Install specific NuGet package (e.g., 3.5.0)
+      #   run: nuget install <package-name> -Version 3.5.0
+
+
+        
