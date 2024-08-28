@@ -1,0 +1,20 @@
+name: CI Workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up NuGet CLI
+        uses: NuGet/setup-nuget@v1
+
+      # - name: Restore NuGet Packages
+      #   run: nuget restore
+
+      # - name: Install specific NuGet package (e.g., 3.5.0)
+      #   run: nuget install <package-name> -Version 3.5.0
