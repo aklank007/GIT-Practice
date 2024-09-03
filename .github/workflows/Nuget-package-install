@@ -1,20 +1,29 @@
-name: CI Workflow
 
-on: [push, pull_request]
+name: Install and Run Tosca CLI
+
+on: [push]
 
 jobs:
-  build:
-    runs-on: windows-latest
-
+  run-tosca:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up NuGet CLI
-        uses: NuGet/setup-nuget@v1
+      - name: List all files in the current directory
+        run: ls
+        
 
-      # - name: Restore NuGet Packages
-      #   run: nuget restore
-
-      # - name: Install specific NuGet package (e.g., 3.5.0)
-      #   run: nuget install <package-name> -Version 3.5.0
+      - name: Install Tosca Execution Client
+        run: |
+          #Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+          .\tosca_execution_client.sh
+      # - name: Run Tosca Tests
+      #   run: |
+          # Replace with your actual parameters
+          # $toscaServerUrl = "<your_tosca_server_url>"
+          # $projectName = "<your_project_name>"
+          # $eventName = "<your_event_name>"
+          
+          # Execute the Tosca CLI command
+          #./tosca_execution_client.sh --toscaServerUrl <toscaServerUrl> --projectName <projectName> --events <events> [Options]
