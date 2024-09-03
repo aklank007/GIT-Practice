@@ -11,6 +11,9 @@ jobs:
 
       - name: List all files in the current directory
         run: ls
+
+      - name: change permission
+        run: chmod u+x tosca_execution_client.sh
         
 
       - name: Install Tosca Execution Client
