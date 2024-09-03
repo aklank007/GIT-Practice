@@ -16,7 +16,7 @@ jobs:
       - name: Install Tosca Execution Client
         run: |
           #Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-          .\tosca_execution_client.sh
+          ./tosca_execution_client.sh
       # - name: Run Tosca Tests
       #   run: |
           # Replace with your actual parameters
